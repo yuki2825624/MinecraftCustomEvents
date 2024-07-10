@@ -1,3 +1,4 @@
+import { playerFishEvent } from "./scripts/player/fish";
 import { playerJumpEvent } from "./scripts/player/jump";
 import { playerLandEvent } from "./scripts/player/land";
 import { playerMoveEvent } from "./scripts/player/move";
@@ -11,13 +12,9 @@ tickEvent.subscribe((ev) => {
     }
 });
 
-// MoveEvent
-playerMoveEvent.subscribe((ev) => {
-    const { player } = ev;
-    if (!player.hasTag("movable")) {
-        ev.cancel = true;
-        player.sendMessage("移動が許可されていません。");
-    }
+playerFishEvent.subscribe((ev) => {
+    const { player, fishedItemStack } = ev;
+    player.sendMessage(`${fishedItemStack.typeId}を釣り上げた！`);
 });
 
 // JumpEvent
@@ -32,4 +29,13 @@ playerJumpEvent.subscribe((ev) => {
 playerLandEvent.subscribe((ev) => {
     const { player, fallDistance } = ev;
     player.sendMessage(`${fallDistance.toFixed(2)}ブロック落下しました。`);
+});
+
+// MoveEvent
+playerMoveEvent.subscribe((ev) => {
+    const { player } = ev;
+    if (!player.hasTag("movable")) {
+        ev.cancel = true;
+        player.sendMessage("移動が許可されていません。");
+    }
 });
