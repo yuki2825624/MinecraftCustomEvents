@@ -11,5 +11,5 @@ export class PlayerFishEventSignal extends EventSignal<PlayerFishEvent> {
     private constructor();
 }
 
-export const playerFishEvent: PlayerJumpEventSignal;
+export const playerFishEvent: PlayerFishEventSignal;
 
